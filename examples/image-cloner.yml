@@ -10,6 +10,7 @@ metadata:
   namespace: image-cloner-system
 data:
   IMAGE_CLONER_REGISTRY: localhost:5000
+  IMAGE_CLONER_SKIP_NAMESPACES: image-cloner-system
 ---
 apiVersion: v1
 kind: Secret

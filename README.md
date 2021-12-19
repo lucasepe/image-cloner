@@ -6,11 +6,12 @@ It's a kubernetes controller that watches the [`Deployments`](https://kubernetes
 
 To configure the backup image registry you must specify the following environment variables:
 
-| Variable              | Description                     | Example        |
-|:----------------------|:--------------------------------|:---------------|
-| IMAGE_CLONER_REGISTRY | target registry                 | localhost:5000 |
-| IMAGE_CLONER_USER     | target registry login username  | testuser       |
-| IMAGE_CLONER_PASS     | target registry login password  | testpass       |
+| Variable                     | Description                     | Example        |
+|:-----------------------------|:--------------------------------|:---------------|
+| IMAGE_CLONER_REGISTRY        | target registry                 | localhost:5000 |
+| IMAGE_CLONER_USER            | target registry login username  | testuser       |
+| IMAGE_CLONER_PASS            | target registry login password  | testpass       |
+| IMAGE_CLONER_SKIP_NAMESPACES | namespaces to skip              | ns1,...,nsN    |
 
 For example, an option could be saving:
 

@@ -153,12 +153,23 @@ func (r *ReconcileDeployment) imageCloner() cloner.Cloner {
 
 // newReconciler returns a new reconcile.Reconciler
 func newReconciler(mgr manager.Manager) reconcile.Reconciler {
+	namespacesToSkip := []string{
+		KubeNs,
+		LocalNs,
+	}
+
+	if ns := os.Getenv("IMAGE_CLONER_SKIP_NAMESPACES"); len(ns) > 0 {
+		names := strings.Split(ns, ",")
+		for i := range names {
+			names[i] = strings.TrimSpace(names[i])
+		}
+
+		namespacesToSkip = append(namespacesToSkip, names...)
+	}
+
 	return &ReconcileDeployment{
-		Client: mgr.GetClient(),
-		scheme: mgr.GetScheme(),
-		namespacesToSkip: []string{
-			KubeNs,
-			LocalNs,
-		},
+		Client:           mgr.GetClient(),
+		scheme:           mgr.GetScheme(),
+		namespacesToSkip: namespacesToSkip,
 	}
 }
