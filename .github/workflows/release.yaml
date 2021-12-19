@@ -1,0 +1,31 @@
+name: release
+
+on:
+  push:
+    tags: [ 'v*' ]
+
+jobs:
+  package:
+    runs-on: ubuntu-20.04
+    permissions:
+      packages: write
+      contents: read
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - name: Build
+        run: make image.build
+      
+      - name: Login to CR
+        uses: docker/login-action@v1
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Package
+        run: make image.push
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

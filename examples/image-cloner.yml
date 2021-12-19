@@ -1,0 +1,40 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: image-cloner-system
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: image-cloner-config
+  namespace: image-cloner-system
+data:
+  IMAGE_CLONER_REGISTRY: localhost:5000
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: image-cloner
+  namespace: image-cloner-system
+  labels:
+    app: image-cloner
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: image-cloner
+  template:
+    metadata:
+      labels:
+        app: image-cloner
+    spec:
+      serviceAccount: image-cloner
+      containers:
+      - name: image-cloner
+        image: ghcr.io/lucasepe/image-cloner:0.1.0
+        imagePullPolicy: IfNotPresent
+        envFrom:
+        - configMapRef:
+            name: image-cloner-config
+        - secretRef:
+            name: image-cloner-cr-login
