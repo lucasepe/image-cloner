@@ -123,3 +123,5 @@ Retrieve the controller log stream:
 ```sh
 $ kubectl logs --follow -n image-cloner-system image-cloner
 ```
+
+![](./examples/demo.gif)

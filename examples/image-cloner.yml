@@ -9,7 +9,7 @@ metadata:
   name: image-cloner-config
   namespace: image-cloner-system
 data:
-  IMAGE_CLONER_REGISTRY: localhost:5000
+  IMAGE_CLONER_REGISTRY: 192.168.1.128:5000
   IMAGE_CLONER_SKIP_NAMESPACES: image-cloner-system
 ---
 apiVersion: v1
